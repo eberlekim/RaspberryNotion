@@ -2,23 +2,20 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('https://unrivaled-hotteok-3a63d5.netlify.app/.netlify/functions/fetch-todos')
     .then(response => response.json())
     .then(data => {
-        const listElement = document.getElementById('todo-list'); // Ensure this ID exists in your HTML
+        const listElement = document.getElementById('todo-list');
         if (!listElement) {
-            console.error('Element with ID todo-list not found.');
+            console.error('Element with ID "todo-list" not found.');
             return;
         }
-        
-        // Clear previous content
-        listElement.innerHTML = '';
-        
-        // Check if there are results
+
+        listElement.innerHTML = ''; // Clear previous content
+
         if (data.object === 'list' && data.results.length > 0) {
-            data.results.forEach((item) => {
-                // Check if the page object has a title property
-                if (item.object === 'page' && item.properties.Name.title.length > 0) {
-                    const titleText = item.properties.Name.title[0].plain_text || 'Untitled';
+            data.results.forEach(item => {
+                if (item.object === 'page' && item.properties && item.properties.Name && item.properties.Name.title) {
+                    const title = item.properties.Name.title[0]?.plain_text || 'Untitled';
                     const listItem = document.createElement('div');
-                    listItem.textContent = titleText;
+                    listItem.textContent = title;
                     listElement.appendChild(listItem);
                 }
             });
@@ -28,9 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => {
         console.error('Error fetching todos:', error);
-        const listElement = document.getElementById('todo-list');
-        if (listElement) {
-            listElement.textContent = 'Failed to load todos.';
-        }
+        document.getElementById('todo-list').textContent = 'Failed to load todos.';
     });
 });
