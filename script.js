@@ -1,50 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const now = new Date();
+    // Set the date at the top of the list
+    const dateContainer = document.getElementById('date-container');
+    const currentDate = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    document.getElementById('date').textContent = now.toLocaleDateString('de-DE', options);
-    document.getElementById('day').textContent = now.toLocaleDateString('de-DE', { weekday: 'long' });
+    dateContainer.textContent = currentDate.toLocaleDateString('de-DE', options);
 
-    fetchTodosAndUpdate(); // Assume this function fetches tasks and updates the DOM
-});
-
-
-
-
-document.addEventListener('DOMContentLoaded', () => {
+    // Fetch the tasks from your endpoint
     fetch('https://unrivaled-hotteok-3a63d5.netlify.app/.netlify/functions/fetch-todos')
-    .then(response => response.json())
-    .then(data => {
-        const listElement = document.getElementById('todo-list');
-        if (!listElement) {
-            console.error('Element with ID "todo-list" not found.');
-            return;
-        }
+        .then(response => response.json())
+        .then(data => {
+            const listElement = document.getElementById('todo-list');
+            listElement.innerHTML = ''; // Clear previous content
 
-        listElement.innerHTML = ''; // Clear previous content
+            // Filter or sort your tasks here if necessary
+            // For example, to filter today's tasks, you'd do something like this:
+            // data.results.filter(task => taskIsToday(task));
 
-        const today = new Date().toISOString().slice(0, 10); // Get today's date in 'YYYY-MM-DD' format
-
-        const todaysTasks = data.results.filter(item => {
-            const itemDate = item.properties.Datum?.date?.start; // Adjust if your date structure is different
-            return itemDate === today;
-        });
-
-        if (todaysTasks.length > 0) {
-            todaysTasks.forEach(item => {
-                const titleText = item?.properties?.Job?.title?.[0]?.plain_text || 'Untitled';
-                const listItem = document.createElement('div');
-                listItem.textContent = titleText;
-                listElement.appendChild(listItem);
+            // Assume data.results is an array of task objects
+            data.results.forEach(task => {
+                // Create an element for each task
+                const taskElement = document.createElement('div');
+                taskElement.textContent = task.title; // Replace with your actual property
+                listElement.appendChild(taskElement);
             });
-        } else {
-            listElement.textContent = 'No tasks for today.';
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching todos:', error);
-        const listElement = document.getElementById('todo-list');
-        if (listElement) {
-            listElement.textContent = 'Failed to load todos.';
-        }
-    });
+        })
+        .catch(error => {
+            console.error('Error fetching todos:', error);
+        });
 });
