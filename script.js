@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('date').textContent = now.toLocaleDateString('de-DE', options);
+    document.getElementById('day').textContent = now.toLocaleDateString('de-DE', { weekday: 'long' });
+
+    fetchTodosAndUpdate(); // Assume this function fetches tasks and updates the DOM
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
     fetch('https://unrivaled-hotteok-3a63d5.netlify.app/.netlify/functions/fetch-todos')
     .then(response => response.json())
     .then(data => {
