@@ -1,30 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Set the date at the top of the list
-    const dateContainer = document.getElementById('date-container');
+    // DOM elements for date and day
+    const fullDateContainer = document.getElementById('full-date');
+    const dayNameContainer = document.getElementById('day-name');
+
+    // Get current date
     const currentDate = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    dateContainer.textContent = currentDate.toLocaleDateString('de-DE', options);
+    const dayNameOptions = { weekday: 'long' };
+    const fullDateOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
 
-    // Fetch the tasks from your endpoint
-    fetch('https://unrivaled-hotteok-3a63d5.netlify.app/.netlify/functions/fetch-todos')
-        .then(response => response.json())
-        .then(data => {
-            const listElement = document.getElementById('todo-list');
-            listElement.innerHTML = ''; // Clear previous content
+    // Display the day name in a large font
+    dayNameContainer.textContent = currentDate.toLocaleDateString('de-DE', dayNameOptions);
 
-            // Filter or sort your tasks here if necessary
-            // For example, to filter today's tasks, you'd do something like this:
-            // data.results.filter(task => taskIsToday(task));
+    // Display the full date in a smaller font
+    fullDateContainer.textContent = currentDate.toLocaleDateString('de-DE', fullDateOptions);
 
-            // Assume data.results is an array of task objects
-            data.results.forEach(task => {
-                // Create an element for each task
-                const taskElement = document.createElement('div');
-                taskElement.textContent = task.title; // Replace with your actual property
-                listElement.appendChild(taskElement);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching todos:', error);
+    // Function to create and display tasks
+    function displayTodos(tasks) {
+        const listElement = document.getElementById('todo-list');
+        listElement.innerHTML = ''; // Clear the list
+
+        // Loop through the tasks and create elements for each
+        tasks.forEach(task => {
+            const taskElement = document.createElement('div');
+            // Here, we assume 'task.title' is the correct property. Adjust as needed.
+            taskElement.textContent = `-> ${task.title || 'Untitled'}`;
+            listElement.appendChild(taskElement);
         });
+    }
+
+    // Mock data for tasks. Replace with your actual fetch logic.
+    const mockTasks = [
+        { title: 'Wäsche machen' },
+        { title: 'Menara digitalisieren' },
+        { title: 'Alvena Besprechung 20:00 Uhr und Chillen' },
+        { title: 'Treffen mit Mama' }
+    ];
+    // Call the function to display tasks
+    displayTodos(mockTasks);
 });
