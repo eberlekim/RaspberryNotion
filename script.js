@@ -8,23 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Clear the placeholder text
-        listElement.innerHTML = '';
+        listElement.innerHTML = ''; // Clear previous content
 
-        // Check for and iterate through the results
-        if (data.object === 'list' && data.results.length > 0) {
-            data.results.forEach(item => {
-                // Log each item's Job property for inspection
-                console.log('Job property:', item.properties.Job);
+        const today = new Date().toISOString().slice(0, 10); // Get today's date in 'YYYY-MM-DD' format
 
-                // Safely access the title text
-                const titleText = item.properties.Job?.title[0]?.plain_text || 'Untitled';
+        const todaysTasks = data.results.filter(item => {
+            const itemDate = item.properties.Datum?.date?.start; // Adjust if your date structure is different
+            return itemDate === today;
+        });
+
+        if (todaysTasks.length > 0) {
+            todaysTasks.forEach(item => {
+                const titleText = item?.properties?.Job?.title?.[0]?.plain_text || 'Untitled';
                 const listItem = document.createElement('div');
                 listItem.textContent = titleText;
                 listElement.appendChild(listItem);
             });
         } else {
-            listElement.textContent = 'No todos found.';
+            listElement.textContent = 'No tasks for today.';
         }
     })
     .catch(error => {
