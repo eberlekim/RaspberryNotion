@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     function updateDateAndDay() {
         const currentDate = new Date();
-        // Generate the local date string according to Swiss standards
-        const localDateString = currentDate.toLocaleDateString('de-CH');
+        // Adjusting for locale 'de-CH' for Switzerland
+        const localDateString = currentDate.toLocaleDateString('de-CH', { year: 'numeric', month: '2-digit', day: '2-digit' });
         const fullDateContainer = document.getElementById('full-date');
         const dayNameContainer = document.getElementById('day-name');
-        // Adjust options for Swiss locale
-        const dateStringOptions = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Europe/Zurich' };
-        const dayStringOptions = { weekday: 'long', timeZone: 'Europe/Zurich' };
 
-        fullDateContainer.textContent = currentDate.toLocaleDateString('de-CH', dateStringOptions);
-        dayNameContainer.textContent = currentDate.toLocaleDateString('de-CH', dayStringOptions);
+        fullDateContainer.textContent = localDateString;
+        dayNameContainer.textContent = currentDate.toLocaleDateString('de-CH', { weekday: 'long' });
     }
 
     updateDateAndDay();
@@ -25,15 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         listElement.innerHTML = ''; // Clear previous content
-        // Use Swiss locale to get today's date in local time zone
-        const today = new Date().toLocaleDateString('de-CH');
+        const today = new Date().toLocaleDateString('de-CH', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
         data.results.forEach(item => {
-            // Assuming the date is in a property named 'Datum'
-            // and converting to Swiss locale date string for comparison
-            const itemDate = new Date(item.properties.Datum.date.start).toLocaleDateString('de-CH');
+            // Ensure we are accessing the date property correctly
+            const itemDateStart = item.properties.Datum?.date?.start;
+            if (!itemDateStart) return; // Skip if no start date
+
+            const itemDate = new Date(itemDateStart).toLocaleDateString('de-CH', { year: 'numeric', month: '2-digit', day: '2-digit' });
             if (itemDate === today) {
-                const titleText = item.properties.Job.title[0]?.plain_text || 'Untitled';
+                // Ensure title is accessed correctly; adjust 'Job' and 'title' as needed
+                const titleText = item.properties.Job?.title[0]?.plain_text || 'Untitled';
                 const listItem = document.createElement('div');
                 listItem.classList.add('todo');
                 listItem.textContent = `-> ${titleText}`;
@@ -48,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => {
         console.error('Error fetching todos:', error);
         const listElement = document.getElementById('todo-list');
-        if(listElement) listElement.textContent = 'Failed to load todos.';
+        if (listElement) listElement.textContent = 'Failed to load todos.';
     });
 
     // Refresh the page every 30 seconds
