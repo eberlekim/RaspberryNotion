@@ -1,0 +1,9 @@
+{
+  "name": "raspberry-notion",
+  "version": "1.0.0",
+  "description": "A simple Netlify function to fetch data from Notion",
+  "main": "index.js",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
