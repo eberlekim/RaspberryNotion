@@ -19,8 +19,8 @@ body {
 }
 
 #date-container {
-    margin-left: 20px;
-    margin-top: 20px;
+    margin-left: 50px;
+    margin-top: 50px;
 }
 
 #day-name {
@@ -29,6 +29,7 @@ body {
 }
 
 .todo {
+    margin-left: 50%;
     font-size: 60px;
     margin-bottom: 20px;
 }
