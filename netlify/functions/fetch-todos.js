@@ -12,6 +12,11 @@ exports.handler = async function(event, context) {
 
   return {
     statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*", // Allows requests from any origin
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Methods": "GET, POST, OPTION"
+    },
     body: JSON.stringify(data)
   };
 };
