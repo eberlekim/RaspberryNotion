@@ -1,18 +1,18 @@
-<!DOCTYPE html>
+htmlCopy code<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notion Todos</title>
+    <title>Notion Daily Tasks</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="todo-list">Loading todos...</div>
+    <div class="container">
+        <div id="date"></div>
+        <div id="day"></div>
+        <div id="todo-list"></div>
+    </div>
     <script src="script.js"></script>
-    <script>
-        setTimeout(function() {
-            window.location.reload();
-        }, 30000); // Adjust the interval as needed
-    </script>
 </body>
 </html>
