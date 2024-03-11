@@ -1,35 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const fullDateContainer = document.getElementById('full-date');
+    const dayNameContainer = document.getElementById('day-name');
+    const todoListContainer = document.getElementById('todo-list');
+    const currentDate = new Date();
+    const dateStringOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const dayStringOptions = { weekday: 'long' };
+
+    fullDateContainer.textContent = currentDate.toLocaleDateString('de-DE', dateStringOptions);
+    dayNameContainer.textContent = currentDate.toLocaleDateString('de-DE', dayStringOptions);
+
     fetch('https://unrivaled-hotteok-3a63d5.netlify.app/.netlify/functions/fetch-todos')
-    .then(response => response.json())
-    .then(data => {
-        const listElement = document.getElementById('todo-list');
-        if (!listElement) {
-            console.error('Element with ID "todo-list" not found.');
-            return;
-        }
+        .then(response => response.json())
+        .then(data => {
+            todoListContainer.innerHTML = '';
 
-        listElement.innerHTML = ''; // Clear previous content
+            const today = currentDate.toISOString().split('T')[0];
+            const todayTasks = data.results.filter(item => {
+                const date = item.properties.Datum?.date?.start;
+                return date === today;
+            });
 
-        if (data.object === 'list' && data.results.length > 0) {
-            data.results.forEach(item => {
-                // Accessing the title through the Job property
-                const titleText = item?.properties?.Job?.title?.[0]?.plain_text || 'Untitled';
+            todayTasks.forEach(item => {
+                const titleText = item.properties.Job?.title[0]?.plain_text || 'Untitled';
                 const listItem = document.createElement('div');
                 listItem.classList.add('todo');
                 listItem.textContent = `-> ${titleText}`;
-                listElement.appendChild(listItem);
+                todoListContainer.appendChild(listItem);
             });
-        } else {
-            listElement.textContent = 'No todos found.';
-        }
-    })
-    .catch(error => {
-        console.error('Error fetching todos:', error);
-        listElement.textContent = 'Failed to load todos.';
-    });
-
-    // Refresh the page every 30 seconds
-    setTimeout(function(){
-        window.location.reload(1);
-    }, 30000); // 30000 milliseconds = 30 seconds
+        })
+        .catch(error => {
+            console.error('Error fetching todos:', error);
+            todoListContainer.textContent = 'Failed to load todos.';
+        });
 });
