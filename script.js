@@ -2,25 +2,19 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('https://unrivaled-hotteok-3a63d5.netlify.app/.netlify/functions/fetch-todos')
     .then(response => response.json())
     .then(data => {
+        console.log("Received data:", data); // Log the entire received data for inspection
         const listElement = document.getElementById('todo-list');
         if (!listElement) {
             console.error('Element with ID "todo-list" not found.');
             return;
         }
 
-        // Clear previous content
-        listElement.innerHTML = '';
+        listElement.innerHTML = ''; // Clear previous content
 
         if (data.object === 'list' && data.results.length > 0) {
-            console.log("First item for inspection:", data.results[0]); // Temporarily log the structure
-
             data.results.forEach(item => {
-                // More robust checking
-                let titleText = 'Untitled'; // Default title
-                if (item.object === 'page' && item.properties && item.properties.Name && Array.isArray(item.properties.Name.title) && item.properties.Name.title.length > 0) {
-                    titleText = item.properties.Name.title[0].plain_text || 'Untitled';
-                }
-
+                // Adjusted to use optional chaining and a more careful approach
+                const titleText = item?.properties?.Name?.title?.[0]?.plain_text || 'Untitled';
                 const listItem = document.createElement('div');
                 listItem.textContent = titleText;
                 listElement.appendChild(listItem);
@@ -31,8 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => {
         console.error('Error fetching todos:', error);
-        if(listElement) { // Ensure listElement is defined
-            listElement.textContent = 'Failed to load todos.';
-        }
+        listElement.textContent = 'Failed to load todos.';
     });
 });
