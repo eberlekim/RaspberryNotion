@@ -14,10 +14,6 @@ body {
     flex-direction: column;
 }
 
-#date-container {
-    text-align: center;
-}
-
 #full-date {
     font-size: 27px;
 }
