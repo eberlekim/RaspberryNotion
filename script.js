@@ -8,12 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        listElement.innerHTML = ''; // Clear previous content
+        // Clear the placeholder text
+        listElement.innerHTML = '';
 
+        // Check for and iterate through the results
         if (data.object === 'list' && data.results.length > 0) {
             data.results.forEach(item => {
-                // Accessing the title through the Job property
-                const titleText = item?.properties?.Job?.title?.[0]?.plain_text || 'Untitled';
+                // Log each item's Job property for inspection
+                console.log('Job property:', item.properties.Job);
+
+                // Safely access the title text
+                const titleText = item.properties.Job?.title[0]?.plain_text || 'Untitled';
                 const listItem = document.createElement('div');
                 listItem.textContent = titleText;
                 listElement.appendChild(listItem);
