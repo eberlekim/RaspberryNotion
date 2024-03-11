@@ -8,16 +8,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        listElement.innerHTML = ''; // Clear previous content
+        // Clear previous content
+        listElement.innerHTML = '';
 
         if (data.object === 'list' && data.results.length > 0) {
+            console.log("First item for inspection:", data.results[0]); // Temporarily log the structure
+
             data.results.forEach(item => {
-                if (item.object === 'page' && item.properties && item.properties.Name && item.properties.Name.title) {
-                    const title = item.properties.Name.title[0]?.plain_text || 'Untitled';
-                    const listItem = document.createElement('div');
-                    listItem.textContent = title;
-                    listElement.appendChild(listItem);
+                // More robust checking
+                let titleText = 'Untitled'; // Default title
+                if (item.object === 'page' && item.properties && item.properties.Name && Array.isArray(item.properties.Name.title) && item.properties.Name.title.length > 0) {
+                    titleText = item.properties.Name.title[0].plain_text || 'Untitled';
                 }
+
+                const listItem = document.createElement('div');
+                listItem.textContent = titleText;
+                listElement.appendChild(listItem);
             });
         } else {
             listElement.textContent = 'No todos found.';
@@ -25,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => {
         console.error('Error fetching todos:', error);
-        document.getElementById('todo-list').textContent = 'Failed to load todos.';
+        if(listElement) { // Ensure listElement is defined
+            listElement.textContent = 'Failed to load todos.';
+        }
     });
 });
