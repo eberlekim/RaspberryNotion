@@ -8,7 +8,13 @@
 </head>
 <body>
     <h1>My Notion Todos</h1>
-    <div id="todo-list">Loading todos...</div> <!-- Adjusted ID to match the JavaScript reference -->
+    <div id="todo-list">Loading todos...</div>
     <script src="script.js"></script>
+    <script>
+        // Reload the page every 30 seconds
+        setTimeout(function() {
+            window.location.reload();
+        }, 30000);
+    </script>
 </body>
 </html>
