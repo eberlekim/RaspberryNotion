@@ -1,35 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const fullDateContainer = document.getElementById('full-date');
-    const dayNameContainer = document.getElementById('day-name');
-    const todoListContainer = document.getElementById('todo-list');
-    const currentDate = new Date();
-    const dateStringOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const dayStringOptions = { weekday: 'long' };
+    const today = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: '2-digit', day: '2-digit' };
+    const fullDateText = today.toLocaleDateString('de-DE', options);
+    const dayName = today.toLocaleDateString('de-DE', { weekday: 'long' });
 
-    fullDateContainer.textContent = currentDate.toLocaleDateString('de-DE', dateStringOptions);
-    dayNameContainer.textContent = currentDate.toLocaleDateString('de-DE', dayStringOptions);
+    document.getElementById('full-date').textContent = fullDateText.split(', ')[1]; // Displays "DD.MM.YYYY"
+    document.getElementById('day-name').textContent = dayName; // Displays "weekday"
 
     fetch('https://unrivaled-hotteok-3a63d5.netlify.app/.netlify/functions/fetch-todos')
-        .then(response => response.json())
-        .then(data => {
-            todoListContainer.innerHTML = '';
+    .then(response => response.json())
+    .then(data => {
+        const listElement = document.getElementById('todo-list');
+        listElement.innerHTML = ''; // Clear previous content
 
-            const today = currentDate.toISOString().split('T')[0];
-            const todayTasks = data.results.filter(item => {
-                const date = item.properties.Datum?.date?.start;
-                return date === today;
-            });
+        const todayFormatted = today.toISOString().split('T')[0];
 
-            todayTasks.forEach(item => {
+        data.results.forEach(item => {
+            // Assuming your date is stored in 'Datum' and formatted as 'YYYY-MM-DD'
+            const itemDate = item.properties.Datum?.date?.start;
+            if (itemDate === todayFormatted) {
                 const titleText = item.properties.Job?.title[0]?.plain_text || 'Untitled';
                 const listItem = document.createElement('div');
                 listItem.classList.add('todo');
                 listItem.textContent = `-> ${titleText}`;
-                todoListContainer.appendChild(listItem);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching todos:', error);
-            todoListContainer.textContent = 'Failed to load todos.';
+                listElement.appendChild(listItem);
+            }
         });
+
+        if (!listElement.hasChildNodes()) {
+            listElement.textContent = 'No todos for today.';
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching todos:', error);
+        listElement.textContent = 'Failed to load todos.';
+    });
+
+    // Refresh the page every 30 seconds
+    setTimeout(function(){
+        window.location.reload(1);
+    }, 30000); // 30000 milliseconds = 30 seconds
 });
