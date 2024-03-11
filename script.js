@@ -1,40 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM elements for date and day
     const fullDateContainer = document.getElementById('full-date');
     const dayNameContainer = document.getElementById('day-name');
-
-    // Get current date
     const currentDate = new Date();
     const dayNameOptions = { weekday: 'long' };
     const fullDateOptions = { year: '2-digit', month: '2-digit', day: '2-digit' };
 
-    // Display the day name in a large font
+    // Display the full date and the day name
+    fullDateContainer.textContent = currentDate.toLocaleDateString('de-DE', fullDateOptions);
     dayNameContainer.textContent = currentDate.toLocaleDateString('de-DE', dayNameOptions);
 
-    // Display the full date in a smaller font
-    fullDateContainer.textContent = currentDate.toLocaleDateString('de-DE', fullDateOptions);
+    // Fetch the tasks from your Notion endpoint
+    fetch('https://unrivaled-hotteok-3a63d5.netlify.app/.netlify/functions/fetch-todos')
+        .then(response => response.json())
+        .then(data => {
+            const listElement = document.getElementById('todo-list');
+            listElement.innerHTML = ''; // Clear previous todos
 
-    // Function to create and display tasks
-    function displayTodos(tasks) {
-        const listElement = document.getElementById('todo-list');
-        listElement.innerHTML = ''; // Clear the list
-
-        // Loop through the tasks and create elements for each
-        tasks.forEach(task => {
-            const taskElement = document.createElement('div');
-            // Here, we assume 'task.title' is the correct property. Adjust as needed.
-            taskElement.textContent = `-> ${task.title || 'Untitled'}`;
-            listElement.appendChild(taskElement);
+            // Extract and display todos, modifying this based on your Notion data structure
+            data.results.forEach(page => {
+                // Replace with your actual path to the title in your Notion tasks
+                const todoText = page.properties.Name.title[0].text.content; 
+                const todoItem = document.createElement('div');
+                todoItem.classList.add('todo'); // Add the class for styling
+                todoItem.innerHTML = `-&gt; ${todoText}`;
+                listElement.appendChild(todoItem);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching todos:', error);
         });
-    }
-
-    // Mock data for tasks. Replace with your actual fetch logic.
-    const mockTasks = [
-        { title: 'Wäsche machen' },
-        { title: 'Menara digitalisieren' },
-        { title: 'Alvena Besprechung 20:00 Uhr und Chillen' },
-        { title: 'Treffen mit Mama' }
-    ];
-    // Call the function to display tasks
-    displayTodos(mockTasks);
 });
