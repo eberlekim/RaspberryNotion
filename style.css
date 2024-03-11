@@ -20,7 +20,7 @@ body {
 
 #day-name {
     font-size: 200px;
-    margin: 0px 10px 10px -15px;
+    margin: -25px 10px 0px -15px;
 }
 
 .todo {
