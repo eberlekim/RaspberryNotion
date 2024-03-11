@@ -1,35 +1,30 @@
-@import url('URL_TO_YOUR_FONT'); /* Include the font file here if it's available online */
-
 body {
     margin: 0;
-    background-color: green; /* Assuming you want a black background */
-    font-family: 'NNSwinton-Regular', Arial, sans-serif; /* Fallback fonts */
-    color: #FFF; /* White text color */
-    overflow: hidden; /* Hide the scrollbar, if any */
+    padding: 0;
+    background-color: #000;
+    color: #FFF;
+    font-family: 'NNSwinton-Regular', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #date-container {
-    position: absolute;
-    top: 10vh; /* Adjust as needed */
-    left: 7.6%; /* Based on the SVG */
-    font-size: 27px; /* Based on the SVG */
+    text-align: center;
+}
+
+#full-date {
+    font-size: 27px;
 }
 
 #day-name {
-    font-size: 140px; /* Based on the SVG */
-    margin-bottom: 20px; /* Adjust as needed */
-    letter-spacing: 0; /* Adjust as needed */
+    font-size: 140px;
+    margin: 20px 0;
 }
 
 .todo {
-    font-size: 60px; /* Based on the SVG */
-    margin-bottom: 10vh; /* Adjust as needed */
-    padding-left: 27.3%; /* Based on the SVG */
-    position: relative; /* For the arrows */
+    font-size: 60px;
+    margin-bottom: 20px;
 }
 
-.todo:before {
-    content: '->';
-    position: absolute;
-    left: -20%; /* Adjust as needed */
-}
+/* Add any additional styles from your previous CSS here */
