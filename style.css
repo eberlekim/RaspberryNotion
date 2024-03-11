@@ -2,7 +2,7 @@
 
 body {
     margin: 0;
-    background-color: red; /* Assuming you want a black background */
+    background-color: green; /* Assuming you want a black background */
     font-family: 'NNSwinton-Regular', Arial, sans-serif; /* Fallback fonts */
     color: #FFF; /* White text color */
     overflow: hidden; /* Hide the scrollbar, if any */
