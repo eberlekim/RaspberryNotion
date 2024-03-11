@@ -6,30 +6,38 @@ body {
     height: 100vh;
     width: 100vw;
     margin: 0;
+    padding: 0;
     font-family: 'Arial', sans-serif;
     background-color: #000; /* Black background */
     color: #fff; /* White text */
-    overflow: hidden; /* Hide the overflow */
+    overflow: hidden; /* Hide scrollbar */
 }
 
 #date-container {
-    font-size: 5rem; /* Large font size for the date */
-    margin-bottom: 2rem; /* Space below the date */
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#full-date {
+    font-size: 1rem; /* Smaller font size for the full date */
+    margin-bottom: 0.5rem;
+}
+
+#day-name {
+    font-size: 5rem; /* Larger font size for the day name */
+    margin-bottom: 2rem;
 }
 
 #todo-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align tasks to the start (left) */
-    width: 80%; /* Adjust based on your preference for vertical orientation */
+    width: 80%; /* Adjust based on your preference */
+    text-align: left; /* Align the tasks to the left */
 }
 
 #todo-list div {
     font-size: 2rem; /* Font size for tasks */
-    text-align: left; /* Align text to the left */
-    position: relative; /* Needed for positioning the arrow */
-    padding-left: 40px; /* Space for the arrow */
     margin-bottom: 1rem; /* Space between tasks */
+    padding-left: 40px; /* Space for the arrow */
+    position: relative; /* For positioning the arrow */
 }
 
 #todo-list div:before {
@@ -37,8 +45,6 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    font-size: 2rem; /* Same font size as the task text */
+    font-size: 2rem; /* Same size as the task text */
     line-height: 1; /* Align arrow with the text */
 }
-
-/* Optional: You can add @media queries for responsive design */
