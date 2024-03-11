@@ -1,50 +1,35 @@
+@import url('URL_TO_YOUR_FONT'); /* Include the font file here if it's available online */
+
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
     margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #000; /* Black background */
-    color: #fff; /* White text */
-    overflow: hidden; /* Hide scrollbar */
+    background-color: #000; /* Assuming you want a black background */
+    font-family: 'NNSwinton-Regular', Arial, sans-serif; /* Fallback fonts */
+    color: #FFF; /* White text color */
+    overflow: hidden; /* Hide the scrollbar, if any */
 }
 
 #date-container {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-#full-date {
-    font-size: 1rem; /* Smaller font size for the full date */
-    margin-bottom: 0.5rem;
+    position: absolute;
+    top: 10vh; /* Adjust as needed */
+    left: 7.6%; /* Based on the SVG */
+    font-size: 27px; /* Based on the SVG */
 }
 
 #day-name {
-    font-size: 5rem; /* Larger font size for the day name */
-    margin-bottom: 2rem;
+    font-size: 140px; /* Based on the SVG */
+    margin-bottom: 20px; /* Adjust as needed */
+    letter-spacing: 0; /* Adjust as needed */
 }
 
-#todo-list {
-    width: 80%; /* Adjust based on your preference */
-    text-align: left; /* Align the tasks to the left */
+.todo {
+    font-size: 60px; /* Based on the SVG */
+    margin-bottom: 10vh; /* Adjust as needed */
+    padding-left: 27.3%; /* Based on the SVG */
+    position: relative; /* For the arrows */
 }
 
-#todo-list div {
-    font-size: 2rem; /* Font size for tasks */
-    margin-bottom: 1rem; /* Space between tasks */
-    padding-left: 40px; /* Space for the arrow */
-    position: relative; /* For positioning the arrow */
-}
-
-#todo-list div:before {
+.todo:before {
     content: '->';
     position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 2rem; /* Same size as the task text */
-    line-height: 1; /* Align arrow with the text */
+    left: -20%; /* Adjust as needed */
 }
