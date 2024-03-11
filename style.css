@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Swinton-Regular';
+    src: url('./NNSwinton-Regular.otf') format('opentype');
+}
+
+
 body {
     margin: 0;
     padding: 0;
