@@ -18,6 +18,11 @@ body {
     font-size: 27px;
 }
 
+#date-container {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
 #day-name {
     font-size: 200px;
     margin: -25px 10px 0px -15px;
