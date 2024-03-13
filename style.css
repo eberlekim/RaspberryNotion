@@ -41,8 +41,11 @@ body {
     align-items: center;
 }
 
-/* Dynamic color classes added in JavaScript based on task property */
-/* Example color, adjust according to your requirements */
-.todo[data-color="Orange"] {color: #D68A4D;}
-.todo[data-color="Brown"] {color: #846E64;}
-/* Add additional color styles here */
+.todo[data-color="Orange"] {color: #D68A4D; border-color: #D68A4D;}
+.todo[data-color="Brown"] {color: #846E64; border-color: #846E64;}
+.todo[data-color="Black"] {color: #456173; border-color: #456173;}
+.todo[data-color="Purple"] {color: #9A6CD5; border-color: #9A6CD5;}
+.todo[data-color="Green"] {color: #9CAB6B; border-color: #9CAB6B;}
+.todo[data-color="Yellow"] {color: #FBCB63; border-color: #FBCB63;}
+.todo[data-color="Pink"] {color: #E280DA; border-color: #E280DA;}
+.todo[data-color="Blue"] {color: #8FA6D5; border-color: #8FA6D5;}
