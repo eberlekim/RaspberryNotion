@@ -12,6 +12,7 @@ body {
     display: flex;
     flex-direction: column;
     padding-left: 100px;
+    padding-right: 150px;
 }
 
 #full-date, #day-name {
@@ -36,9 +37,13 @@ body {
     padding: 10px;
     font-size: 50px; /* Adjust font size */
     margin: 5px 0; /* Space between todos */
-    border-radius: 5px; /* Rounded edges */
+    border-radius: 20px; /* Rounded edges */
     display: flex;
     align-items: center;
+    border: solid 1.5px;
+    margin-left: 170px;
+    margin-bottom: 15px;
+    padding-left: 50px;
 }
 
 .todo[data-color="Orange"] {color: #D68A4D; border-color: #D68A4D;}
