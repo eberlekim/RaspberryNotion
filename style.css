@@ -11,11 +11,11 @@ body {
     font-family: 'Swinton-Regular', sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Ensure content is centered */
+    padding-left: 100px;
 }
 
 #full-date, #day-name {
-    text-align: center; /* Center date and day */
+    margin-top: 200px;
 }
 
 #full-date {
@@ -26,6 +26,7 @@ body {
 #day-name {
     font-size: 140px; /* Larger font size for the day */
     margin-top: 0;
+    margin-left: -10px;
 }
 
 .todo {
