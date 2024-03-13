@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const listItem = document.createElement('div');
                     listItem.classList.add('todo');
                     listItem.setAttribute('data-color', color); // Dynamically set color
-                    listItem.textContent = `-> ${titleText}`;
+                    listItem.textContent = `${titleText}`;
                     listElement.appendChild(listItem);
                 }
             });
