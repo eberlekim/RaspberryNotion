@@ -6,8 +6,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #F9F5E7; /* Updated to match your template */
-    color: black;
+    background-color: black; /* Updated to match your template */
+    color: white;
     font-family: 'Swinton-Regular', sans-serif;
     display: flex;
     flex-direction: column;
