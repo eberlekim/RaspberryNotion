@@ -7,7 +7,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #F9F5E7; /* Updated to match your template */
-    color: #456173; /* Text color for date and day */
+    color: black;
     font-family: 'Swinton-Regular', sans-serif;
     display: flex;
     flex-direction: column;
@@ -54,3 +54,15 @@ body {
 .todo[data-color="Yellow"] {color: #FBCB63; border-color: #FBCB63;}
 .todo[data-color="Pink"] {color: #E280DA; border-color: #E280DA;}
 .todo[data-color="Blue"] {color: #8FA6D5; border-color: #8FA6D5;}
+
+
+
+
+.todo[data-color="Orange"] {color: white; border-color: white;}
+.todo[data-color="Brown"] {color: white; border-color: white;}
+.todo[data-color="Black"] {color: white; border-color: white;}
+.todo[data-color="Purple"] {color: white; border-color: white;}
+.todo[data-color="Green"] {color: white; border-color: white;}
+.todo[data-color="Yellow"] {color: white; border-color: white;}
+.todo[data-color="Pink"] {color: white; border-color: white;}
+.todo[data-color="Blue"] {color: white; border-color: white;}
